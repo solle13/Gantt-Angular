@@ -1,0 +1,66 @@
+<div class="cont-lineToday">
+    <div class="dateToday" [style.color]="line.left !== 0 ? null : '#C0392B'" [style.left]="line.left !== 0 ? (line.left - 35)+'px' : 'auto'" [style.right]="line.left !== 0 ? 'auto' : '0'">
+      {{today}}
+    </div>
+    <div class="lineToday" [style.border]="line.left !== 0 ? null : '1px solid #C0392B'" [style.left]="line.left !== 0 ? line.left+'px' : 'auto'" [style.right]="line.left !== 0 ? 'auto' : '0'" [style.height]="((items.length + 1) * 35) + 'px'">
+  
+    </div>
+  </div>
+  
+  <div cdkDropList id="containerGantt" class="container-gantt" (cdkDropListDropped)="drop($event)" *ngIf="isDragAndDrop">
+    <div class="listItems" *ngFor="let item of items" cdkDrag >
+      
+      <span class="nameItem">{{item.name}}</span>
+      <div class="bar-gantt-main" (click)="selectedBar(item)">
+        <div [ngClass]="item.estatus === 'Atrasada' ? 'container-bar-gantt animatedGantt2' : 'container-bar-gantt'" [style.width]="item.widthBar+'%'" [style.left]="item.leftPx+'px'" [style.background-color]="item.color" (mouseover)="item.viewTooltip=true" (mouseout)="item.viewTooltip=false">
+          <span class="bar-gantt" [style.width]="item.avance+'%'" [style.background-color]="item.colorAvance"></span>
+  
+          <div [ngClass]="item.viewTooltip ? 'tootlip-gantt-view' : 'tootlip-gantt'" class="tootlip-gantt" [style.animation]="'none'">
+            <span [style.font-weight]="'600'">{{item.name}}</span>
+            <span [style.color]="item.color" [style.font-weight]="'600'">{{item.estatus}}</span>
+            <span>{{item.fechaFin}}</span>
+            <span>Avance: {{item.avance + '%'}}</span>
+          </div>
+  
+        </div>
+  
+        
+      </div>
+      
+      
+    </div>
+  </div>
+  <div id="containerGantt" class="container-gantt" *ngIf="!isDragAndDrop">
+    <div class="listItems" *ngFor="let item of items" [style.opacity]="!item.selected ? '0.5' : '1'">
+      
+      <span class="nameItem">{{item.name}}</span>
+      <div class="bar-gantt-main" (click)="selectedBar(item)">
+        <div [ngClass]="item.estatus === 'Atrasada' ? 'container-bar-gantt animatedGantt2' : 'container-bar-gantt'" [style.width]="item.widthBar+'%'" [style.left]="item.leftPx+'px'" [style.background-color]="item.color" (mouseover)="item.viewTooltip=true" (mouseout)="item.viewTooltip=false">
+            <span class="bar-gantt" [style.width]="item.avance+'%'" [style.background-color]="item.colorAvance"></span>
+  
+          <div [ngClass]="item.viewTooltip ? 'tootlip-gantt-view' : 'tootlip-gantt'" class="tootlip-gantt" [style.animation]="'none'">
+            <span [style.font-weight]="'700'">{{item.name}}</span>
+            <span [style.color]="item.color" [style.font-weight]="'700'">{{item.estatus}}</span>
+            <span> {{item.fechaFin}}</span>
+            <span>Avance: {{item.avance + '%'}}</span>
+          </div>
+  
+        </div>
+  
+        
+      </div>
+      
+      
+    </div>
+  </div>
+  
+  
+  
+  <div class="divider" id="containerGanttFechas">
+    <div class="item-div" *ngFor="let item of arrayDiv" [style.left]="item.left + 'px'">
+      {{item.name}}
+    </div>
+    
+  </div>
+  
+  
